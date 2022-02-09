@@ -32,15 +32,11 @@ function App() {
           setWeather(result);
           setCity('');
     
-          if (result.cod !== '404') {
-            fetch(`${api.forecast}lat=${result.coord.lat}&lon=${result.coord.lon}&exclude=hourly,minutely&units=metric&appid=${api.key}`)
-            .then(res => res.json())
-            .then(resp => {
-              setForcsst(resp);
-            }).catch(err => console.error(err));
-            return
-          }
-          setForcsst({})
+          fetch(`${api.forecast}lat=${result.coord.lat}&lon=${result.coord.lon}&exclude=hourly,minutely&units=metric&appid=${api.key}`)
+          .then(res => res.json())
+          .then(resp => {
+            setForcsst(resp);
+          }).catch(err => console.error(err));
         }).catch(err => console.error(err));
     }
   }
