@@ -22,10 +22,10 @@ function App() {
       const fetchForForecast = async () => {
         const response = await fetch(`${API.forecast}lat=${city.coord.lat}&lon=${city.coord.lon}&exclude=hourly,minutely&units=metric&appid=${API.key}`);
         const data = await response.json();
-  
+
         setForecast(data);
       }
-      
+
       fetchForForecast().catch(console.error);
     } else {
       isMounted.current = true;
@@ -53,11 +53,12 @@ function App() {
   );
 
   return (
-    <div className="App">
+    <div className="main">
+      <div className="main__container">
+        <h1 className="main__title">Weather Map</h1>
 
-      <FormCity onSubmit={onSubmit} />
+        <FormCity onSubmit={onSubmit} />
 
-      <div>
         {city.cod === '404' ? blockError
 
           :
@@ -68,7 +69,6 @@ function App() {
 
             : ''}
       </div>
-
     </div>
   );
 }

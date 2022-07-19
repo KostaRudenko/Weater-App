@@ -1,3 +1,5 @@
+import './ItemDay.css';
+
 export default function ItemDay({ day, dateBuilder }) {
     return (
         <div className="location-box__item">

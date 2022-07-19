@@ -1,5 +1,6 @@
 import ItemDay from "../ItemDay/ItemDay"
 import { DAYS, MONTHS } from "../../App";
+import './WeatherMain.css';
 
 export default function WeaterMain({ city, forecast }) {
     const dateBuilder = d => {

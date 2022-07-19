@@ -1,0 +1,23 @@
+.search-box {
+    text-align: center;
+}
+
+.search-box__body {
+    display: flex;
+    break-after: column;
+    justify-content: center;
+}
+
+.search-box__input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 220px;
+}
+
+.search-box__submit {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #f5d290;
+}
