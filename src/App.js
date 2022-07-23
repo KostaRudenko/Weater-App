@@ -19,13 +19,6 @@ function App() {
 
   useEffect(() => {
     if (isMounted.current) {
-      const fetchForForecast = async () => {
-        const response = await fetch(`${API.forecast}lat=${city.coord.lat}&lon=${city.coord.lon}&exclude=hourly,minutely&units=metric&appid=${API.key}`);
-        const data = await response.json();
-
-        setForecast(data);
-      }
-
       fetchForForecast().catch(console.error);
     } else {
       isMounted.current = true;
@@ -34,18 +27,24 @@ function App() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    const city = event.target.city.value;
+  
+    fetchForCity(event.target.city.value).catch(console.error);
 
-    const fetchForCity = async () => {
-      const response = await fetch(`${API.base}weather?q=${city}&units=metric&appid=${API.key}`);
-      const data = await response.json();
+    event.target.city.value = '';
+  }
 
-      setCity(data);
-    }
+  const fetchForCity = async (city) => {
+    const response = await fetch(`${API.base}weather?q=${city}&units=metric&appid=${API.key}`);
+    const data = await response.json();
+    
+    setCity(data);
+  }
 
-    fetchForCity().catch(console.error);
+  const fetchForForecast = async () => {
+    const response = await fetch(`${API.forecast}lat=${city.coord.lat}&lon=${city.coord.lon}&exclude=hourly,minutely&units=metric&appid=${API.key}`);
+    const data = await response.json();
 
-    event.target.city.value = ''
+    setForecast(data);
   }
 
   const blockError = (
@@ -59,15 +58,14 @@ function App() {
 
         <FormCity onSubmit={onSubmit} />
 
-        {city.cod === '404' ? blockError
+        { city.cod === '404' ? blockError
 
           :
 
-          typeof forecast.daily !== 'undefined' ?
+          forecast.daily ? <WeaterMain city={city} forecast={forecast} />
 
-            <WeaterMain city={city} forecast={forecast} />
-
-            : ''}
+            : ''
+        }
       </div>
     </div>
   );
